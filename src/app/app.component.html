@@ -12,26 +12,18 @@
     </div>
     <div class="row">
       <ng-container *ngFor="let user of users; index as i">
-        <div class="col-md-4">{{ i }}</div>
+        <div class="col-md-4">
+          <h2>{{ user.name }}</h2>
+          <p>
+            {{ user.address.street }} {{ user.address.suite }}<br />
+            {{ user.address.city }} {{ user.address.zipcode }}
+          </p>
+          <div class="d-flex flex-row-reverse">
+            <button type="button" class="btn btn-outline-danger">Delete</button>
+          </div>
+        </div>
       </ng-container>
     </div>
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th scope="col">Name</th>
-          <th scope="col">Address</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let user of users">
-          <td>{{ user.name }}</td>
-          <td>
-            {{ user.address.street }} {{ user.address.suite }}
-            {{ user.address.city }} {{ user.address.zipcode }}
-          </td>
-        </tr>
-      </tbody>
-    </table>
   </ng-container>
 
   <ng-template #errorTemplate>
