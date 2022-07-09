@@ -13,15 +13,23 @@
     <div class="row">
       <ng-container *ngFor="let user of users; index as i">
         <div class="col-md-4">
-          <h2>{{ user.name }}</h2>
-          <p>
-            {{ user.address.street }} {{ user.address.suite }}<br />
-            {{ user.address.city }} {{ user.address.zipcode }}
-          </p>
-          <div class="d-flex flex-row-reverse">
-            <button type="button" class="btn btn-outline-danger">
-              <fa-icon [icon]="faTrash"></fa-icon> Delete
-            </button>
+          <div class="card mt-4">
+            <div class="card-body">
+              <h5 class="card-title">{{ user.name }}</h5>
+              <p class="card-text">
+                {{ user.address.street }} {{ user.address.suite }}<br />
+                {{ user.address.city }} {{ user.address.zipcode }}
+              </p>
+              <div class="d-flex flex-row-reverse">
+                <button
+                  type="button"
+                  class="btn btn-outline-danger"
+                  (click)="deleteUser(user.id)"
+                >
+                  <fa-icon [icon]="faTrash"></fa-icon> Delete
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </ng-container>
