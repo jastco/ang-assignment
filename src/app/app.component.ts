@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Users } from '@models/users';
 import { catchError, EMPTY, Observable, tap } from 'rxjs';
 import { DataService } from './data/data.service';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -9,6 +10,7 @@ import { DataService } from './data/data.service';
 })
 export class AppComponent implements OnInit {
   users$: Observable<Users[]> | undefined;
+  faTrash = faTrash;
 
   constructor(private dataService: DataService) {}
 
