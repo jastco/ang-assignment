@@ -30,6 +30,7 @@ export class AppComponent implements OnInit {
   }
 
   deleteUser(user: User): void {
-    this.dataService.deleteUser(user);
+    confirm(`Delete information for ${user.name}?`) &&
+      this.dataService.deleteUser(user);
   }
 }
