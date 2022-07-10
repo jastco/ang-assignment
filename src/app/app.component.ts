@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faTriangleExclamation } from '@fortawesome/free-solid-svg-icons';
 import { User } from '@models/user';
 import { catchError, EMPTY, Observable } from 'rxjs';
 import { DataService } from './data/data.service';
@@ -11,8 +11,8 @@ import { DataService } from './data/data.service';
 })
 export class AppComponent implements OnInit {
   users$: Observable<User[]> | undefined;
-  faTrash = faTrash;
-  collapsed = true;
+
+  faTriangleExclamation = faTriangleExclamation;
 
   constructor(private dataService: DataService) {}
 
@@ -25,12 +25,9 @@ export class AppComponent implements OnInit {
     );
   }
 
-  deleteUser(user: User): void {
-    confirm(`Delete information for ${user.name}?`) &&
-      this.dataService.deleteUser(user);
-  }
-
-  refreshData(): void {
-    window.location.reload();
+  refreshData(refresh: boolean): void {
+    if (refresh) {
+      window.location.reload();
+    }
   }
 }

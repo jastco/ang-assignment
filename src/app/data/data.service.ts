@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { User } from '@models/user';
-import { merge, Subject } from 'rxjs';
+import { merge, of, Subject } from 'rxjs';
 import { concatMap, map, scan } from 'rxjs/operators';
 import { BASE_URL } from '../constants';
 
@@ -12,6 +12,8 @@ export class DataService {
   constructor(private http: HttpClient) {}
 
   private usersAPI$ = this.http.get<User[]>(BASE_URL);
+  // visual test - simulate no users
+  // private usersAPI$ = of([] as User[]);
 
   private userDeletedSubject = new Subject<User>();
   userDeleted$ = this.userDeletedSubject.asObservable();

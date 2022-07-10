@@ -1,51 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-  <div class="container-fluid">
-    <span class="navbar-brand">Test App</span>
-    <button
-      class="navbar-toggler"
-      type="button"
-      aria-controls="navbarContent"
-      [attr.aria-expanded]="!collapsed"
-      aria-label="Toggle navigation"
-      (click)="collapsed = !collapsed"
-    >
-      <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div
-      class="navbar-collapse"
-      [class.collapse]="collapsed"
-      id="navbarContent"
-    >
-      <ul class="navbar-nav ms-auto">
-        <li class="nav-item" ngbDropdown>
-          <a
-            class="nav-link"
-            tabindex="0"
-            ngbDropdownToggle
-            id="navbarDropdown2"
-            role="button"
-          >
-            Menu
-          </a>
-          <div
-            ngbDropdownMenu
-            aria-labelledby="navbarDropdown2"
-            class="dropdown-menu dropdown-menu-end"
-          >
-            <a ngbDropdownItem href="#" (click)="refreshData()">Refresh</a>
-            <a ngbDropdownItem href="#" (click)="$event.preventDefault()"
-              >Menu 2</a
-            >
-            <a ngbDropdownItem href="#" (click)="$event.preventDefault()"
-              >Menu 3</a
-            >
-          </div>
-        </li>
-      </ul>
-    </div>
-  </div>
-</nav>
+<app-top-nav (refreshDataEvent)="refreshData($event)"></app-top-nav>
 <div class="container">
   <ng-container *ngIf="users$ | async as users; else loadingTemplate">
     <ng-container *ngIf="users.length > 0; else noUsersTemplate">
@@ -57,26 +10,7 @@
       <div class="row">
         <ng-container *ngFor="let user of users">
           <div class="col-md-4">
-            <!-- component refactor start -->
-            <div class="card mt-4">
-              <div class="card-body">
-                <h5 class="card-title">{{ user.name }}</h5>
-                <p class="card-text">
-                  {{ user.address?.street }} {{ user.address?.suite }}<br />
-                  {{ user.address?.city }} {{ user.address?.zipcode }}
-                </p>
-                <div class="d-flex flex-row-reverse">
-                  <button
-                    type="button"
-                    class="btn btn-sm btn-outline-danger"
-                    (click)="deleteUser(user)"
-                  >
-                    <fa-icon [icon]="faTrash"></fa-icon> Delete
-                  </button>
-                </div>
-              </div>
-            </div>
-            <!-- component refactor end -->
+            <app-user-card [user]="user"></app-user-card>
           </div>
         </ng-container>
       </div>
@@ -84,11 +18,22 @@
   </ng-container>
 
   <ng-template #noUsersTemplate>
-    <p>No users! What happened!</p>
+    <h4 class="alert alert-danger d-flex align-items-center mt-5" role="alert">
+      <fa-icon [icon]="faTriangleExclamation"></fa-icon>
+      <div class="mx-2">No users found!</div>
+    </h4>
   </ng-template>
 
   <ng-template #loadingTemplate>
-    <p>Fetching users...</p>
+    <div class="row mt-5">
+      <div class="col">
+        <div class="d-flex justify-content-center">
+          <div class="spinner-border" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+        </div>
+      </div>
+    </div>
   </ng-template>
 
   <ng-template #errorTemplate>
