@@ -11,7 +11,7 @@ import { BASE_URL } from '../constants';
 export class DataService {
   constructor(private http: HttpClient) {}
 
-  private _users$ = this.http.get<User[]>(BASE_URL).pipe(shareReplay(1));
+  private _users$ = this.http.get<User[]>(BASE_URL);
 
   private userDeletedSubject = new Subject<User>();
   userDeleted$ = this.userDeletedSubject.asObservable();
