@@ -29,4 +29,8 @@ export class AppComponent implements OnInit {
     confirm(`Delete information for ${user.name}?`) &&
       this.dataService.deleteUser(user);
   }
+
+  reset(): void {
+    window.location.reload();
+  }
 }
