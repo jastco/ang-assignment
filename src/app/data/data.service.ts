@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { User } from '@models/user';
 import { merge, Subject } from 'rxjs';
-import { concatMap, map, scan, shareReplay } from 'rxjs/operators';
+import { concatMap, map, scan } from 'rxjs/operators';
 import { BASE_URL } from '../constants';
 
 @Injectable({

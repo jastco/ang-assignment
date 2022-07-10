@@ -1,6 +1,51 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
   <div class="container-fluid">
-    <span class="navbar-brand mb-0 h1">Test App</span>
+    <span class="navbar-brand">Test App</span>
+    <button
+      class="navbar-toggler"
+      type="button"
+      aria-controls="navbarContent"
+      [attr.aria-expanded]="!collapsed"
+      aria-label="Toggle navigation"
+      (click)="collapsed = !collapsed"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div
+      class="navbar-collapse"
+      [class.collapse]="collapsed"
+      id="navbarContent"
+    >
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item" ngbDropdown>
+          <a
+            class="nav-link"
+            tabindex="0"
+            ngbDropdownToggle
+            id="navbarDropdown2"
+            role="button"
+          >
+            Menu
+          </a>
+          <div
+            ngbDropdownMenu
+            aria-labelledby="navbarDropdown2"
+            class="dropdown-menu dropdown-menu-end"
+          >
+            <a ngbDropdownItem href="#" (click)="$event.preventDefault()"
+              >Menu 1</a
+            >
+            <a ngbDropdownItem href="#" (click)="$event.preventDefault()"
+              >Menu 2</a
+            >
+            <a ngbDropdownItem href="#" (click)="$event.preventDefault()"
+              >Menu 3</a
+            >
+          </div>
+        </li>
+      </ul>
+    </div>
   </div>
 </nav>
 <div class="container">

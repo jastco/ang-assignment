@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { User } from '@models/user';
-import { catchError, EMPTY, Observable, tap } from 'rxjs';
+import { catchError, EMPTY, Observable } from 'rxjs';
 import { DataService } from './data/data.service';
 @Component({
   selector: 'app-root',
@@ -12,6 +12,7 @@ import { DataService } from './data/data.service';
 export class AppComponent implements OnInit {
   users$: Observable<User[]> | undefined;
   faTrash = faTrash;
+  collapsed = true;
 
   constructor(private dataService: DataService) {}
 
