@@ -4,37 +4,43 @@
   </div>
 </nav>
 <div class="container">
-  <ng-container *ngIf="users$ | async as users; else errorTemplate">
+  <ng-container *ngIf="users$ | async as users; else loadingTemplate">
     <div class="row">
       <div class="col">
         <h4 class="mt-3">Showing {{ users?.length }} Records</h4>
       </div>
     </div>
     <div class="row">
-      <ng-container *ngFor="let user of users; index as i">
+      <ng-container *ngFor="let user of users">
         <div class="col-md-4">
+          <!-- component refactor start -->
           <div class="card mt-4">
             <div class="card-body">
               <h5 class="card-title">{{ user.name }}</h5>
               <p class="card-text">
-                {{ user.address.street }} {{ user.address.suite }}<br />
-                {{ user.address.city }} {{ user.address.zipcode }}
+                {{ user.address?.street }} {{ user.address?.suite }}<br />
+                {{ user.address?.city }} {{ user.address?.zipcode }}
               </p>
               <div class="d-flex flex-row-reverse">
                 <button
                   type="button"
-                  class="btn btn-outline-danger"
-                  (click)="deleteUser(user.id)"
+                  class="btn btn-sm btn-outline-danger"
+                  (click)="deleteUser(user)"
                 >
                   <fa-icon [icon]="faTrash"></fa-icon> Delete
                 </button>
               </div>
             </div>
           </div>
+          <!-- component refactor end -->
         </div>
       </ng-container>
     </div>
   </ng-container>
+
+  <ng-template #loadingTemplate>
+    <p>Fetching users...</p>
+  </ng-template>
 
   <ng-template #errorTemplate>
     <p>An error occurred!</p>

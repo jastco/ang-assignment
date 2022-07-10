@@ -1,22 +1,23 @@
-import { Component, OnInit } from '@angular/core';
-import { Users } from '@models/users';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import { User } from '@models/user';
 import { catchError, EMPTY, Observable, tap } from 'rxjs';
 import { DataService } from './data/data.service';
-import { faTrash } from '@fortawesome/free-solid-svg-icons';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent implements OnInit {
-  users$: Observable<Users[]> | undefined;
+  users$: Observable<User[]> | undefined;
   faTrash = faTrash;
 
   constructor(private dataService: DataService) {}
 
   ngOnInit(): void {
-    this.users$ = this.dataService.loadUsers$().pipe(
-      tap((users) => {
+    this.users$ = (<Observable<User[]>>this.dataService.users$).pipe(
+      tap((users: User[]) => {
         if (users?.length <= 0) {
           throw new Error('No users found');
         }
@@ -26,5 +27,9 @@ export class AppComponent implements OnInit {
         return EMPTY;
       })
     );
+  }
+
+  deleteUser(user: User): void {
+    this.dataService.deleteUser(user);
   }
 }
