@@ -17,11 +17,6 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.users$ = (<Observable<User[]>>this.dataService.users$).pipe(
-      tap((users: User[]) => {
-        if (users?.length <= 0) {
-          throw new Error('No users found');
-        }
-      }),
       catchError((err) => {
         console.log('Users API error: ', err);
         return EMPTY;
