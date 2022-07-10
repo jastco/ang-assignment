@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { faTriangleExclamation } from '@fortawesome/free-solid-svg-icons';
 import { User } from '@models/user';
-import { catchError, EMPTY, Observable } from 'rxjs';
+import { BehaviorSubject, catchError, EMPTY, Observable } from 'rxjs';
 import { DataService } from './data/data.service';
 @Component({
   selector: 'app-root',
@@ -10,6 +10,7 @@ import { DataService } from './data/data.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent implements OnInit {
+  error$ = new BehaviorSubject<boolean | undefined>(undefined);
   users$: Observable<User[]> | undefined;
 
   faTriangleExclamation = faTriangleExclamation;
@@ -19,7 +20,8 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     this.users$ = (<Observable<User[]>>this.dataService.users$).pipe(
       catchError((err) => {
-        console.log('Users API error: ', err);
+        // console.log('Users API error: ', err);
+        this.error$.next(true);
         return EMPTY;
       })
     );
