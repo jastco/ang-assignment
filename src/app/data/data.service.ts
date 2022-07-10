@@ -11,13 +11,13 @@ import { BASE_URL } from '../constants';
 export class DataService {
   constructor(private http: HttpClient) {}
 
-  private _users$ = this.http.get<User[]>(BASE_URL);
+  private usersAPI$ = this.http.get<User[]>(BASE_URL);
 
   private userDeletedSubject = new Subject<User>();
   userDeleted$ = this.userDeletedSubject.asObservable();
 
   users$ = merge(
-    this._users$,
+    this.usersAPI$,
     this.userDeleted$.pipe(
       concatMap((user: User) =>
         this.http.delete<User>(`${BASE_URL}/${user.id}`).pipe(map(() => user))

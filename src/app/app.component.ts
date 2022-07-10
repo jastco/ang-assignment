@@ -30,7 +30,7 @@ export class AppComponent implements OnInit {
       this.dataService.deleteUser(user);
   }
 
-  reset(): void {
+  refreshData(): void {
     window.location.reload();
   }
 }
