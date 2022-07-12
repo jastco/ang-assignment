@@ -10,14 +10,24 @@
 
 <ng-template #contentTemplate>
   <app-top-nav (refreshDataEvent)="refreshData($event)"></app-top-nav>
+
   <div class="container">
-    <ng-container *ngIf="users$ | async as users; else loadingTemplate">
-      <ng-container *ngIf="users.length > 0; else noUsersTemplate">
-        <div class="row">
-          <div class="col">
-            <h4 class="mt-3">Showing {{ users?.length }} Records</h4>
-          </div>
+    <ng-container *ngIf="filteredUsers$ | async as users; else loadingTemplate">
+      <div class="row mt-3 align-items-center justify-content-between">
+        <div class="col-auto">
+          <h4>Showing {{ users?.length }} Records</h4>
         </div>
+        <div class="col-auto">
+          <input
+            [formControl]="search"
+            class="form-control"
+            placeholder="Filter by name"
+            aria-label="Name filter"
+          />
+        </div>
+      </div>
+
+      <ng-container *ngIf="users.length > 0; else noUsersTemplate">
         <div class="row">
           <ng-container *ngFor="let user of users">
             <div class="col-md-6 col-lg-4">
